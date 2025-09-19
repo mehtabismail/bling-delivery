@@ -1,0 +1,37 @@
+{
+  "welcome": "Welcome,",
+  "slogan": "Our Luxury App ( slogan )",
+  "signin": {
+    "heading": "Sign In",
+    "sub-heading": "Please enter your account here",
+    "input-heading-email": "User Name/email",
+    "input-heading-pass": "Password",
+    "button-text": "Sign in"
+  },
+  "home": {
+    "text_input_placeholder": "Search for our Items..."
+  },
+  "category_detail": {
+    "text_input_placeholder": "Search for Items..."
+  },
+  "product_detail": {
+    "condition": "Condition :",
+    "product_year": "Production Year :",
+    "delivery_scope": "Delivery Scop :",
+    "description": "Description",
+    "more": "More",
+    "less": "Less",
+    "care": "Care",
+    "product_specification": "Product Specifications",
+    "security": "Security",
+    "seller_info": "Seller Information",
+    "more_prod": "More Product",
+    "have_any_quuestion": "Do you have any questions?",
+    "contact": "Contact",
+    "price": "Price",
+    "buy_now": "Buy Now"
+  },
+  "filter": {
+    "header_center_text": "Filter"
+  }
+}

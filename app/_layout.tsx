@@ -1,24 +1,47 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { useTranslation } from "react-i18next";
+import { StatusBar, StyleSheet, useColorScheme, View } from "react-native";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import { store } from "../src/store/store";
+import "../src/translations";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
+function AppContent() {
+  const safeAreaInsets = useSafeAreaInsets();
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <View
+      style={{
+        ...styles.container,
+        paddingTop: safeAreaInsets.top,
+        paddingLeft: safeAreaInsets.left,
+        paddingRight: safeAreaInsets.right,
+      }}
+    >
+      <Stack screenOptions={{ headerShown: false }} />
+    </View>
   );
 }
+
+export default function RootLayout() {
+  const isDarkMode = useColorScheme() === "dark";
+  const { t } = useTranslation();
+  global.t = t;
+
+  return (
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <StatusBar barStyle={"default"} />
+        <AppContent />
+      </Provider>
+    </SafeAreaProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
