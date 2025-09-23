@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { BASE_URL } from "../config/env";
 import { logout } from "../store/auth/AuthSlice";
 import { persistor } from "../store/store";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "",
+  baseUrl: BASE_URL,
   prepareHeaders: (headers, { getState }: any) => {
     const token = getState().auth.token;
     if (token) {

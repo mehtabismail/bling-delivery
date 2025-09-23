@@ -35,4 +35,41 @@ const truncate = (text: string, maxLength: number): string => {
   return text.slice(0, maxLength) + "…";
 };
 
-export { hS, mS, sHight, sWidth, truncate, vS, windowHeight, windowWidth };
+const handleApiError = async (error: any, toastFn?: any) => {
+  console.log("API Error response ==>>", JSON.stringify(error));
+  console.log(!!error?.error?.data?.message, "error check");
+
+  let errorMessage = "Something went wrong ...";
+
+  if (!!error?.error?.data?.message) {
+    console.log("paassed this error");
+    errorMessage = error?.error?.data?.message;
+  } else if (
+    error?.error?.data?.error?.includes(
+      "(3581516) is more than maximum allowed value (1048576)"
+    )
+  ) {
+    errorMessage = "Error: File size more than 1 mb";
+  } else if (error?.error?.data?.message) {
+    console.log("passed last ");
+    errorMessage = error?.error?.data?.message;
+  }
+
+  if (toastFn && typeof toastFn.error === "function") {
+    toastFn.error(errorMessage);
+  } else {
+    console.error("Toast function not provided or invalid:", errorMessage);
+  }
+};
+
+export {
+  handleApiError,
+  hS,
+  mS,
+  sHight,
+  sWidth,
+  truncate,
+  vS,
+  windowHeight,
+  windowWidth,
+};

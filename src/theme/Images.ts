@@ -46,6 +46,7 @@ export default function ({}: ThemeVariables) {
       Box_Outlined: require("@/src/theme/assets/svg/Box_Outlined.svg"),
       Box_Selected: require("@/src/theme/assets/svg/Box_Selected.svg"),
       Packages: require("@/src/theme/assets/svg/Packages.svg"),
+      Eye_Open: require("@/src/theme/assets/svg/Eye_Open.svg"),
     },
     png: {
       Logo: require("../theme/assets/images/Logo.png"),

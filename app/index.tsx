@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 const Index = () => {
   const { token } = useSelector((state: RootState) => state.auth);
 
-  console.log(token, "chhanged token");
   return !token ? (
     <Redirect href={"/(auth)"} />
   ) : (

@@ -7,11 +7,13 @@ import {
   TextInput,
   TextInputProps,
   TextStyle,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
 import { useTheme } from "../hooks";
 import { mS } from "../utils/helper";
+import CustomTextView from "./CustomTextView";
 
 export interface CustomTextInputProps extends TextInputProps {
   headingText?: string;
@@ -25,6 +27,8 @@ export interface CustomTextInputProps extends TextInputProps {
   fieldName?: string;
   customContainerStyle?: StyleProp<ViewStyle>;
   type: string;
+  error?: any;
+  onPressRight?: Function;
 }
 
 const CustomTextInput: React.FC<CustomTextInputProps> = (props) => {
@@ -93,16 +97,29 @@ const CustomTextInput: React.FC<CustomTextInputProps> = (props) => {
 
         {/* Right Icon */}
         {RIcon && (
-          <View
+          <TouchableOpacity
+            onPress={() => props?.onPressRight()}
             style={{
               justifyContent: "center",
               paddingHorizontal: mS(10),
             }}
           >
             <RIcon width={mS(25)} height={mS(25)} />
-          </View>
+          </TouchableOpacity>
         )}
       </View>
+      {props?.error && (
+        <CustomTextView
+          text={props?.error}
+          customStyle={[
+            Gutters.littleTPadding,
+            Fonts.POPPINS_REGULAR_15,
+            { color: Colors.error },
+          ]}
+        >
+          {props?.error}
+        </CustomTextView>
+      )}
     </View>
   );
 };
