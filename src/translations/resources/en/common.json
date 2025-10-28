@@ -33,5 +33,53 @@
   },
   "filter": {
     "header_center_text": "Filter"
+  },
+  "account": "Account",
+  "packages": "Packages",
+  "apply": "Apply",
+  "departure_at": "Departure at",
+  "status": {
+    "waiting": "Waiting",
+    "in_transit": "In Transit",
+    "completed": "Completed",
+    "canceled": "Canceled"
+  },
+  "filters": {
+    "all": "All",
+    "in_transit": "In Transit",
+    "completed": "Completed",
+    "canceled": "Canceled"
+  },
+  "tabs": {
+    "bling_center": "Bling Center",
+    "customers": "Customers"
+  },
+  "promo": {
+    "earn_cash_title": "Earn Cash From The luxury items You Don't Need",
+    "list_now": "List Now"
+  },
+  "bling_luxury_store": "LUXURY STORE",
+  "menu": {
+    "profile": "Profile",
+    "change_password": "Change Password",
+    "logout": "Logout"
+  },
+  "profile": {
+    "title": "Profile",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email_address": "Email Address",
+    "phone_number": "Phone Number",
+    "choose_one": "Choose One",
+    "enter_full_address": "Enter Your Full address"
+  },
+  "change_password": {
+    "title": "Change Password",
+    "old_password": "Old Password",
+    "new_password": "New Password",
+    "confirm_new_password": "Confirm New Address"
+  },
+  "errors": {
+    "passwords_dont_match": "Passwords don't match"
   }
 }

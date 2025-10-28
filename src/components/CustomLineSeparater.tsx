@@ -10,7 +10,7 @@ const CustomLineSeparater: FC<any> = ({ customStyle }) => {
         Layout.fullWidth,
         Gutters.gapVMargin,
         Gutters.borderBWidth,
-        { borderColor: "#222222" },
+        { borderColor: "#E6E6E6" },
         customStyle,
       ]}
     />

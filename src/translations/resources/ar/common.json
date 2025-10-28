@@ -1,7 +1,62 @@
 {
   "welcome": "مرحبًا،",
   "slogan": "تطبيقنا الفاخر (شعار)",
+  "signin": {
+    "heading": "تسجيل الدخول",
+    "sub-heading": "يرجى إدخال حسابك هنا",
+    "input-heading-email": "اسم المستخدم/البريد الإلكتروني",
+    "input-heading-pass": "كلمة المرور",
+    "button-text": "تسجيل الدخول"
+  },
   "home": {
     "text_input_placeholder": "ابحث عن منتجاتنا..."
+  },
+  "account": "الحساب",
+  "packages": "الطرود",
+  "apply": "تطبيق",
+  "departure_at": "المغادرة في",
+  "status": {
+    "waiting": "في الانتظار",
+    "in_transit": "في الطريق",
+    "completed": "مكتمل",
+    "canceled": "ملغي"
+  },
+  "filters": {
+    "all": "الكل",
+    "in_transit": "في الطريق",
+    "completed": "مكتمل",
+    "canceled": "ملغي"
+  },
+  "tabs": {
+    "bling_center": "مركز بلينج",
+    "customers": "العملاء"
+  },
+  "promo": {
+    "earn_cash_title": "اكسب المال من العناصر الفاخرة التي لا تحتاجها",
+    "list_now": "قائمة الآن"
+  },
+  "bling_luxury_store": "متجر فاخر",
+  "menu": {
+    "profile": "الملف الشخصي",
+    "change_password": "تغيير كلمة المرور",
+    "logout": "تسجيل الخروج"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "first_name": "الاسم الأول",
+    "last_name": "الاسم الأخير",
+    "email_address": "عنوان البريد الإلكتروني",
+    "phone_number": "رقم الهاتف",
+    "choose_one": "اختر واحد",
+    "enter_full_address": "أدخل عنوانك الكامل"
+  },
+  "change_password": {
+    "title": "تغيير كلمة المرور",
+    "old_password": "كلمة المرور القديمة",
+    "new_password": "كلمة المرور الجديدة",
+    "confirm_new_password": "تأكيد العنوان الجديد"
+  },
+  "errors": {
+    "passwords_dont_match": "كلمات المرور غير متطابقة"
   }
 }

@@ -2,6 +2,7 @@ import React from "react";
 import {
   GestureResponderEvent,
   StyleProp,
+  StyleSheet,
   Text,
   TextStyle,
   TouchableOpacity,
@@ -38,18 +39,15 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         Layout.center,
         Gutters.gapVMargin,
         // Gutters.darkShadow,
-        {
-          height: mS(48),
-          borderRadius: mS(14),
-          backgroundColor: Colors.primary,
-        },
+        Gutters.gapXGapRadius,
+        createStyles.button(Colors),
         customStyle,
       ]}
     >
       <Text
         style={[
           Fonts.POPPINS_MEDIUM_16,
-          { color: Colors.white },
+          createStyles.buttonText(Colors),
           customTextStyle,
         ]}
       >
@@ -57,6 +55,20 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       </Text>
     </TouchableOpacity>
   );
+};
+
+const styles = StyleSheet.create({
+  // Static styles can stay here if any
+});
+
+const createStyles = {
+  button: (Colors: any) => ({
+    height: mS(48),
+    backgroundColor: Colors.primary,
+  }),
+  buttonText: (Colors: any) => ({
+    color: Colors.white,
+  }),
 };
 
 export default CustomButton;

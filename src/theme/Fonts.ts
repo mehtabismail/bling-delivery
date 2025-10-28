@@ -123,6 +123,16 @@ export default function ({ Colors }: ThemeVariables) {
       fontSize: mS(24),
       color: Colors.text,
     },
+    POPPINS_MEDIUM_18: {
+      fontFamily: fonts.POPPINS_MEDIUM,
+      fontSize: mS(18),
+      color: Colors.text,
+    },
+    POPPINS_MEDIUM_16: {
+      fontFamily: fonts.POPPINS_MEDIUM,
+      fontSize: mS(16),
+      color: Colors.text,
+    },
     POPPINS_BOLD_14: {
       fontFamily: fonts.POPPINS_BOLD,
       fontSize: mS(14),
@@ -167,6 +177,16 @@ export default function ({ Colors }: ThemeVariables) {
     POPPINS_LIGHT_11: {
       fontFamily: fonts.POPPINS_LIGHT,
       fontSize: mS(11),
+      color: Colors.text,
+    },
+    POPPINS_MEDIUM_11: {
+      fontFamily: fonts.POPPINS_MEDIUM,
+      fontSize: mS(11),
+      color: Colors.text,
+    },
+    POPPINS_MEDIUM_10: {
+      fontFamily: fonts.POPPINS_MEDIUM,
+      fontSize: mS(10),
       color: Colors.text,
     },
     boldWeight: {

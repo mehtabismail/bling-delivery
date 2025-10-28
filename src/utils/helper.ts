@@ -62,7 +62,39 @@ const handleApiError = async (error: any, toastFn?: any) => {
   }
 };
 
+const getStatusColor = (status: string, Colors: any) => {
+  switch (status) {
+    case "waiting":
+      return Colors.status_waiting;
+    case "in_transit":
+      return Colors.status_in_transit;
+    case "completed":
+      return Colors.status_completed;
+    case "canceled":
+      return Colors.status_canceled;
+    default:
+      return Colors.status_waiting;
+  }
+};
+
+const getStatusText = (status: string) => {
+  switch (status) {
+    case "waiting":
+      return t("common:status.waiting");
+    case "in_transit":
+      return t("common:status.in_transit");
+    case "completed":
+      return t("common:status.completed");
+    case "canceled":
+      return t("common:status.canceled");
+    default:
+      return t("common:status.waiting");
+  }
+};
+
 export {
+  getStatusColor,
+  getStatusText,
   handleApiError,
   hS,
   mS,
