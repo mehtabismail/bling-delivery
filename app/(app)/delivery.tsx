@@ -40,6 +40,7 @@ const Delivery = () => {
         mapRegion={mapRegion}
         routeCoordinates={routeCoordinates}
         isLoadingLocation={isLoadingLocation}
+        bottomSheetRatio={0.6}
       />
 
       {/* Bottom Sheet */}

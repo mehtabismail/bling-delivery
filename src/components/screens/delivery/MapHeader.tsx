@@ -1,6 +1,6 @@
 import { useTheme } from "@/src/hooks";
 import { mS } from "@/src/utils/helper";
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -17,6 +17,7 @@ interface MapHeaderProps {
   mapRegion: any;
   routeCoordinates: { latitude: number; longitude: number }[];
   isLoadingLocation: boolean;
+  bottomSheetRatio?: number; // 0..1 of screen height reserved by sheet (for padding)
 }
 
 const MapHeader: React.FC<MapHeaderProps> = ({
@@ -26,30 +27,70 @@ const MapHeader: React.FC<MapHeaderProps> = ({
   mapRegion,
   routeCoordinates,
   isLoadingLocation,
+  bottomSheetRatio = 0.6,
 }) => {
   const { Layout, Colors, Fonts, Images } = useTheme();
-  const height = Math.min(Dimensions.get("window").height * 0.45, 420);
+  const mapRef = useRef<MapView | null>(null);
+  const screenHeight = Dimensions.get("window").height;
+  const bottomPaddingPx = useMemo(
+    () => Math.round(screenHeight * bottomSheetRatio),
+    [screenHeight, bottomSheetRatio]
+  );
+
+  // Fit map to coordinates with bottom padding so markers/route are visible above the sheet
+  useEffect(() => {
+    if (!mapRef.current || !mapRegion) return;
+    const coords: { latitude: number; longitude: number }[] = [];
+    if (currentLocation) coords.push(currentLocation);
+    coords.push(blingCenterLocation, buyerLocation);
+
+    if (coords.length) {
+      try {
+        mapRef.current.fitToCoordinates(coords, {
+          edgePadding: {
+            top: 40,
+            right: 24,
+            bottom: bottomPaddingPx + 24,
+            left: 24,
+          },
+          animated: true,
+        });
+      } catch {}
+    }
+  }, [
+    currentLocation,
+    blingCenterLocation,
+    buyerLocation,
+    bottomPaddingPx,
+    mapRegion,
+  ]);
 
   /**
    * Renders loading state while getting location
    */
   const renderLoadingState = () => (
-    <View
-      style={[
-        Layout.fill,
-        Layout.center,
-        { backgroundColor: Colors.background_F0F3F4 },
-      ]}
-    >
-      <ActivityIndicator size="large" color={Colors.primary} />
-      <Text
+    <View style={[StyleSheet.absoluteFillObject]}>
+      <View
         style={[
-          Fonts.POPPINS_REGULAR_14,
-          { color: Colors.text_707480, marginTop: mS(10) },
+          Layout.center,
+          {
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: screenHeight * (1 - bottomSheetRatio) * 0.5 - 20,
+          },
         ]}
       >
-        Getting your location...
-      </Text>
+        <ActivityIndicator size="large" color={Colors.primary} />
+        <Text
+          style={[
+            Fonts.POPPINS_REGULAR_14,
+            { color: Colors.text_707480, marginTop: mS(10) },
+          ]}
+        >
+          Getting your location...
+        </Text>
+      </View>
     </View>
   );
 
@@ -58,6 +99,7 @@ const MapHeader: React.FC<MapHeaderProps> = ({
    */
   const renderMapView = () => (
     <MapView
+      ref={mapRef}
       provider={PROVIDER_GOOGLE}
       style={styles.map}
       initialRegion={mapRegion}
@@ -133,7 +175,7 @@ const MapHeader: React.FC<MapHeaderProps> = ({
   );
 
   return (
-    <View style={{ height }}>
+    <View style={[StyleSheet.absoluteFillObject]}>
       {isLoadingLocation || !mapRegion ? renderLoadingState() : renderMapView()}
     </View>
   );
