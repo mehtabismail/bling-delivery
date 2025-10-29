@@ -22,7 +22,11 @@ const Packages = () => {
     <CustomPackageCard
       package={item}
       variant="packages"
-      onPress={() => {}}
+      onPress={() => {
+        if (item.status !== "completed") {
+          router.push(`/delivery?id=${item.id}` as any);
+        }
+      }}
       customStyles={Gutters.xTinyHMargin}
     />
   );

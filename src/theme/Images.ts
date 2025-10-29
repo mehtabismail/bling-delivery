@@ -57,6 +57,16 @@ export default function ({}: ThemeVariables) {
       Edit: require("@/src/theme/assets/svg/Edit.svg"),
       Complete_Box: require("@/src/theme/assets/svg/Complete_Box.svg"),
       Black_Box: require("@/src/theme/assets/svg/Black_Box.svg"),
+      // Delivery screen specific assets
+      Message: require("@/src/theme/assets/svg/Message.svg"),
+      Phone: require("@/src/theme/assets/svg/Phone.svg"),
+      Dots: require("@/src/theme/assets/svg/Dots.svg"),
+      Google_Map_Marker: require("@/src/theme/assets/svg/Google_Map_Marker.svg"),
+      Map_Box: require("@/src/theme/assets/svg/Map_Box.svg"),
+      Slider_Arrows: require("@/src/theme/assets/svg/Slider_Arrows.svg"),
+      Progress_Map_Marker: require("@/src/theme/assets/svg/Progress_Map_Marker.svg"),
+      Confirm_Order: require("@/src/theme/assets/svg/Confirm_Order.svg"),
+      Done_Icon: require("@/src/theme/assets/svg/Done_Icon.svg"),
     },
     png: {
       Logo: require("../theme/assets/images/Logo.png"),

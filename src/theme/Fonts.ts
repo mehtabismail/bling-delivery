@@ -55,6 +55,11 @@ export default function ({ Colors }: ThemeVariables) {
       lineHeight: mS(24),
       color: Colors.white_text,
     },
+    POPPINS_LIGHT_13: {
+      fontFamily: fonts.POPPINS_LIGHT,
+      fontSize: mS(13),
+      color: Colors.text,
+    },
     POPPINS_MEDIUM_13: {
       fontFamily: fonts.POPPINS_MEDIUM,
       fontSize: mS(13),

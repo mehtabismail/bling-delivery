@@ -8,6 +8,9 @@
     "scheme": "blingdelivery",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "extra": {
+      "GOOGLE_MAPS_API_KEY": "AIzaSyB4r34eOMecl9O-T988Oy9mgj5PuBweiKQ"
+    },
     "ios": {
       "supportsTablet": false,
       "splash": {
@@ -15,7 +18,15 @@
         "resizeMode": "contain",
         "backgroundColor": "#003441"
       },
-      "bundleIdentifier": "com.bling.delivery"
+      "bundleIdentifier": "com.bling.delivery",
+      "config": {
+        "googleMapsApiKey": "AIzaSyB4r34eOMecl9O-T988Oy9mgj5PuBweiKQ"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Bling Delivery needs your location to show your current position and provide accurate delivery tracking.",
+        "NSLocationAlwaysUsageDescription": "Bling Delivery needs your location to track deliveries even when the app is in the background.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Bling Delivery needs your location to track deliveries and show your position on the map."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,7 +36,17 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB4r34eOMecl9O-T988Oy9mgj5PuBweiKQ"
+        }
+      }
     },
     "web": {
       "output": "static",
@@ -34,6 +55,16 @@
     "plugins": [
       "expo-router",
       ["expo-splash-screen"],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Bling Delivery needs your location to track deliveries and show your position on the map.",
+          "locationAlwaysPermission": "Bling Delivery needs your location to track deliveries even when the app is in the background.",
+          "locationWhenInUsePermission": "Bling Delivery needs your location to show your current position and provide accurate delivery tracking.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true
+        }
+      ],
       [
         "expo-font",
         {
