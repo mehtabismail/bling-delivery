@@ -8,3 +8,4 @@ export { default as CustomTextInput } from "./CustomTextInput";
 export { default as CustomTextView } from "./CustomTextView";
 
 //  UI Components
+export { default as CustomPackageCard } from "./CustomPackageCard";

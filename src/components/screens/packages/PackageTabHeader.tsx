@@ -22,7 +22,7 @@ const PackageTabHeader: React.FC<PackageTabHeaderProps> = ({
   ];
 
   return (
-    <View style={[Layout.row, Gutters.smallVMargin]}>
+    <View style={[Layout.row, Layout.screenWithoutFill]}>
       {tabs.map((tab) => {
         const isActive = activeTab === tab.key;
         return (
@@ -38,7 +38,7 @@ const PackageTabHeader: React.FC<PackageTabHeaderProps> = ({
                 borderBottomWidth: mS(2),
                 borderBottomColor: isActive
                   ? Colors.primary
-                  : Colors.transparent,
+                  : Colors.background_F0F3F4,
               },
             ]}
           >

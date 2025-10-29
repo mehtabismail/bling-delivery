@@ -28,6 +28,7 @@ export const Colors = {
   white: "#ffffff",
   white_text: "#F7FAFA",
   background: "#FFFFFF",
+  background_F0F3F4: "#F0F3F4",
   rounded_cirle: "#F5F7F7",
   textinput_background: "#F6F7F7",
   border_primary: "#E6E6E6",

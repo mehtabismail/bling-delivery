@@ -20,7 +20,7 @@ export const toastConfig: ToastConfig = {
       {...props}
       style={{
         marginTop: Platform.OS === "ios" ? mS(15) : 0,
-        borderLeftColor: Colors.green,
+        borderLeftColor: Colors.status_completed,
         backgroundColor: Colors.white,
         borderRadius: mS(15),
         zIndex: 999999,

@@ -1,7 +1,10 @@
-import { CustomHeader, CustomTextInput } from "@/src/components";
+import {
+  CustomHeader,
+  CustomPackageCard,
+  CustomTextInput,
+} from "@/src/components";
 import FeaturedPackageCard from "@/src/components/screens/home/FeaturedPackageCard";
 import PackageFilters from "@/src/components/screens/home/PackageFilters";
-import PackageListItem from "@/src/components/screens/home/PackageListItem";
 import { useTheme } from "@/src/hooks";
 import { mS } from "@/src/utils/helper";
 import { mockPackages, Package } from "@/src/utils/mockData";
@@ -11,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { FlatList, View } from "react-native";
 
 const Home = () => {
-  const { Layout, Colors } = useTheme();
+  const { Layout, Colors, Gutters } = useTheme();
   const { t } = useTranslation();
 
   const [search, setSearch] = useState("");
@@ -42,14 +45,19 @@ const Home = () => {
     : filteredPackages;
 
   const renderPackageItem = ({ item }: { item: Package }) => (
-    <PackageListItem package={item} onPress={() => {}} />
+    <CustomPackageCard
+      package={item}
+      variant="home"
+      onPress={() => {}}
+      customStyles={Gutters.xTinyHMargin}
+    />
   );
 
   return (
     <View style={[Layout.fill, { backgroundColor: Colors.background }]}>
       <CustomHeader
-        centerIcon='Bling'
-        rightIcon='Notification'
+        centerIcon="Bling"
+        rightIcon="Notification"
         onPressRight={() => router.push("/(app)/notification")}
         customStyles={[Layout.screenWithoutFill]}
       />
@@ -66,10 +74,10 @@ const Home = () => {
               <CustomTextInput
                 placeholder={t("common:home.text_input_placeholder")}
                 value={search}
-                fieldName='search'
+                fieldName="search"
                 handleChangeInput={handleChangeInput}
-                keyboardType='web-search'
-                type='text'
+                keyboardType="web-search"
+                type="text"
                 leftIcon={"Search"}
                 customContainerStyle={{
                   backgroundColor: Colors.textinput_background,

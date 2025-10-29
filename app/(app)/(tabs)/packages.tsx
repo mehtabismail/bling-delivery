@@ -1,5 +1,4 @@
-import { CustomHeader } from "@/src/components";
-import PackageCard from "@/src/components/screens/packages/PackageCard";
+import { CustomHeader, CustomPackageCard } from "@/src/components";
 import PackageTabHeader from "@/src/components/screens/packages/PackageTabHeader";
 import { useTheme } from "@/src/hooks";
 import { mockPackages, Package } from "@/src/utils/mockData";
@@ -9,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { FlatList, View } from "react-native";
 
 const Packages = () => {
-  const { Layout, Colors } = useTheme();
+  const { Layout, Colors, Gutters } = useTheme();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<"bling_center" | "customers">(
     "bling_center"
@@ -20,7 +19,12 @@ const Packages = () => {
   const filteredPackages = mockPackages;
 
   const renderPackageItem = ({ item }: { item: Package }) => (
-    <PackageCard package={item} onPress={() => {}} />
+    <CustomPackageCard
+      package={item}
+      variant="packages"
+      onPress={() => {}}
+      customStyles={Gutters.xTinyHMargin}
+    />
   );
 
   return (
@@ -32,7 +36,7 @@ const Packages = () => {
         customStyles={[Layout.screenWithoutFill]}
       />
 
-      <View style={[Layout.fill, Layout.screenWithoutFill]}>
+      <View style={[Layout.fill]}>
         {/* Tab Header */}
         <PackageTabHeader activeTab={activeTab} onTabChange={setActiveTab} />
 
@@ -42,7 +46,7 @@ const Packages = () => {
           renderItem={renderPackageItem}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingVertical: 16 }}
+          contentContainerStyle={Gutters.xTinyVPadding}
         />
       </View>
     </View>

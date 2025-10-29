@@ -2,21 +2,33 @@ import { useTheme } from "@/src/hooks";
 import { getStatusColor, getStatusText, mS } from "@/src/utils/helper";
 import { Package } from "@/src/utils/mockData";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import CustomLineSeparater from "../../CustomLineSeparater";
-import { packageListItemStyles } from "./Styles";
+import {
+  StyleProp,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
+import CustomLineSeparater from "./CustomLineSeparater";
+import { customPackageCardStyles } from "./CustomStyles";
 
-interface PackageListItemProps {
+interface CustomPackageCardProps {
   package: Package;
   onPress?: () => void;
+  variant?: "home" | "packages";
+  customStyles?: StyleProp<ViewStyle>;
 }
 
-const PackageListItem: React.FC<PackageListItemProps> = ({
+const CustomPackageCard: React.FC<CustomPackageCardProps> = ({
   package: packageData,
   onPress,
+  variant = "home",
+  customStyles,
 }) => {
   const { Layout, Colors, Fonts, Gutters, Images } = useTheme();
 
+  // Both variants render the same design for now
+  // variant prop kept for future customization
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -24,10 +36,10 @@ const PackageListItem: React.FC<PackageListItemProps> = ({
       style={[
         Gutters.xTinyGapPadding,
         Gutters.xTinyBMargin,
-        Gutters.xTinyGapHMargin,
         Gutters.gapRadius,
         Gutters.lightShadow,
-        packageListItemStyles.dynamic.container(Colors),
+        customPackageCardStyles.dynamic.container(Colors),
+        customStyles,
       ]}
     >
       {/* Header Row */}
@@ -47,7 +59,7 @@ const PackageListItem: React.FC<PackageListItemProps> = ({
             <Text
               style={[
                 Fonts.POPPINS_MEDIUM_15,
-                packageListItemStyles.dynamic.packageTitle(Colors),
+                customPackageCardStyles.dynamic.packageTitle(Colors),
               ]}
             >
               {packageData.packageNumber}
@@ -55,7 +67,7 @@ const PackageListItem: React.FC<PackageListItemProps> = ({
             <Text
               style={[
                 Fonts.POPPINS_REGULAR_12,
-                packageListItemStyles.dynamic.customerName(Colors),
+                customPackageCardStyles.dynamic.customerName(Colors, variant),
               ]}
             >
               {packageData.customerName}
@@ -67,7 +79,7 @@ const PackageListItem: React.FC<PackageListItemProps> = ({
             Gutters.xTinyHPadding,
             Gutters.tinyVPadding,
             Gutters.smallRadius,
-            packageListItemStyles.dynamic.statusBadge(
+            customPackageCardStyles.dynamic.statusBadge(
               getStatusColor(packageData.status, Colors)
             ),
           ]}
@@ -75,7 +87,7 @@ const PackageListItem: React.FC<PackageListItemProps> = ({
           <Text
             style={[
               Fonts.POPPINS_MEDIUM_13,
-              packageListItemStyles.dynamic.statusText(Colors),
+              customPackageCardStyles.dynamic.statusText(Colors),
             ]}
           >
             {getStatusText(packageData.status)}
@@ -107,7 +119,7 @@ const PackageListItem: React.FC<PackageListItemProps> = ({
               Fonts.POPPINS_REGULAR_13,
               Layout.fill,
               Gutters.littleXGapLMargin,
-              packageListItemStyles.dynamic.addressText(Colors),
+              customPackageCardStyles.dynamic.addressText(Colors, variant),
             ]}
             numberOfLines={1}
           >
@@ -125,4 +137,4 @@ const PackageListItem: React.FC<PackageListItemProps> = ({
   );
 };
 
-export default PackageListItem;
+export default CustomPackageCard;
