@@ -28,7 +28,7 @@ const CustomToggleButton: FC<Props> = (props: Props) => {
             borderRadius: 10,
             justifyContent: "center",
             borderWidth: toggle !== true ? 1 : 0,
-            borderColor: Colors.dark_gray_676C6A,
+            borderColor: Colors.status_waiting || "#9CA3AF",
           },
         ]}
       >
@@ -36,7 +36,7 @@ const CustomToggleButton: FC<Props> = (props: Props) => {
           <View
             style={[
               {
-                backgroundColor: Colors.dark_gray_676C6A,
+                backgroundColor: Colors.status_waiting || "#9CA3AF",
                 width: 16,
                 height: 16,
                 borderRadius: 8,

@@ -13,60 +13,37 @@ const PromoCard: React.FC<PromoCardProps> = ({ onPress }) => {
   const { t } = useTranslation();
 
   return (
-    <View
-      style={[
-        Gutters.smallPadding,
-        Gutters.xTinyGapMargin,
-        Gutters.smallTMargin,
-        Gutters.xTinyGapRadius,
-        createStyles.container(Colors),
-      ]}
-    >
-      <View style={[Layout.rowBetween, Layout.alignItemsCenter]}>
-        <View style={[Layout.fill, Gutters.xTinyGapRMargin]}>
-          <Text style={[Fonts.POPPINS_MEDIUM_18, createStyles.title(Colors)]}>
-            {t("common:promo.earn_cash_title")}
-          </Text>
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={onPress}
-            style={[
-              Gutters.smallHPadding,
-              Gutters.tinyVPadding,
-              Gutters.xTinyGapTMargin,
-              Layout.selfStart,
-              Gutters.mediumRadius,
-              createStyles.button(Colors),
-            ]}
-          >
-            <Text
-              style={[Fonts.POPPINS_MEDIUM_14, createStyles.buttonText(Colors)]}
-            >
-              {t("common:promo.list_now")}
+    <View style={[createStyles.containerWrapper]}>
+      <View style={[createStyles.container(Colors)]}>
+        <View style={[Layout.rowBetween, Layout.fill]}>
+          <View style={[{ width: "60%" }]}>
+            <Text style={[Fonts.POPPINS_MEDIUM_16, createStyles.title(Colors)]}>
+              {t("common:promo.earn_cash_title")}
             </Text>
-          </TouchableOpacity>
-        </View>
 
-        <View
-          style={[
-            Layout.center,
-            Gutters.xTinyGapPadding,
-            Gutters.gapRadius,
-            createStyles.iconCircle(Colors),
-          ]}
-        >
-          <Images.svg.Bling.default width={mS(40)} height={mS(40)} />
-          <Text
-            style={[
-              Fonts.POPPINS_MEDIUM_10,
-              Layout.textAlignCenter,
-              Gutters.xMiniTMargin,
-              createStyles.subtitle(Colors),
-            ]}
-          >
-            {t("common:bling_luxury_store")}
-          </Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={onPress}
+              style={[
+                Gutters.smallHPadding,
+                Gutters.xTinyGapVPadding,
+                Gutters.smallTMargin,
+                Layout.selfStart,
+                Gutters.smallRadius,
+                createStyles.button(Colors),
+              ]}
+            >
+              <Text
+                style={[
+                  Fonts.POPPINS_MEDIUM_12,
+                  createStyles.buttonText(Colors),
+                ]}
+              >
+                {t("common:promo.list_now")}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <Images.svg.Bling_Luxury.default />
         </View>
       </View>
     </View>
@@ -78,26 +55,44 @@ const styles = StyleSheet.create({
 });
 
 const createStyles = {
+  containerWrapper: {
+    marginTop: mS(16),
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: (Colors: any) => ({
+    width: "100%",
+    height: mS(170),
     backgroundColor: Colors.primary,
+    borderRadius: mS(30),
+    opacity: 1,
+    padding: mS(24),
+    paddingHorizontal: mS(28),
+    paddingBottom: mS(16),
   }),
   title: (Colors: any) => ({
     color: Colors.white,
-    lineHeight: mS(24),
+    lineHeight: mS(20),
   }),
   button: (Colors: any) => ({
     backgroundColor: Colors.white + "30",
+    paddingHorizontal: mS(16),
+    paddingVertical: mS(6),
   }),
   buttonText: (Colors: any) => ({
     color: Colors.white,
   }),
-  iconCircle: (Colors: any) => ({
-    backgroundColor: Colors.white + "20",
-    width: mS(80),
-    height: mS(80),
+  logoBox: (Colors: any) => ({
+    backgroundColor: Colors.primary_dark || "#1a4d5d",
+    borderRadius: mS(12),
+    paddingHorizontal: mS(16),
+    paddingVertical: mS(12),
+    minWidth: mS(100),
   }),
   subtitle: (Colors: any) => ({
     color: Colors.white,
+    fontSize: mS(8),
+    letterSpacing: 0.5,
   }),
 };
 

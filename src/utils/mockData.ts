@@ -8,6 +8,8 @@ export interface Package {
   departureDate?: string;
   destination: string; // This is the "Center" field as requested
   progress?: number; // For progress bar (0-100)
+  leftLocationType?: "vendor" | "warehouse" | "customer";
+  rightLocationType?: "vendor" | "warehouse" | "customer";
 }
 
 export const mockPackages: Package[] = [

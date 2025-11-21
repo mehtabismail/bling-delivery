@@ -28,18 +28,19 @@ const LogoutButton: React.FC = () => {
       style={[
         Layout.row,
         Layout.alignItemsCenter,
-        Gutters.smallHPadding,
-        Gutters.xTinyGapVPadding,
-        Gutters.xTinyGapTMargin,
+        Gutters.regularHPadding,
+        Gutters.regularVPadding,
+        Gutters.regularMargin,
         {
           backgroundColor: Colors.white,
+          marginTop: mS(300),
         },
       ]}
     >
-      <View style={[Gutters.xTinyGapRMargin]}>
+      <View style={[Gutters.smallRMargin]}>
         <Images.svg.Logout.default
-          width={mS(20)}
-          height={mS(20)}
+          width={mS(24)}
+          height={mS(24)}
           fill={Colors.error}
         />
       </View>

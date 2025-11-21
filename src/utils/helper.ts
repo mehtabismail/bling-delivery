@@ -35,6 +35,13 @@ const truncate = (text: string, maxLength: number): string => {
   return text.slice(0, maxLength) + "…";
 };
 
+const truncateWords = (text: string, maxWords: number = 15): string => {
+  if (typeof text !== "string") return "";
+  const words = text.trim().split(/\s+/);
+  if (words.length <= maxWords) return text;
+  return words.slice(0, maxWords).join(" ") + "...";
+};
+
 const handleApiError = async (error: any, toastFn?: any) => {
   console.log("API Error response ==>>", JSON.stringify(error));
   console.log(!!error?.error?.data?.message, "error check");
@@ -80,15 +87,15 @@ const getStatusColor = (status: string, Colors: any) => {
 const getStatusText = (status: string) => {
   switch (status) {
     case "waiting":
-      return t("common:status.waiting");
+      return "Waiting";
     case "in_transit":
-      return t("common:status.in_transit");
+      return "In Transit";
     case "completed":
-      return t("common:status.completed");
+      return "Completed";
     case "canceled":
-      return t("common:status.canceled");
+      return "Canceled";
     default:
-      return t("common:status.waiting");
+      return "Waiting";
   }
 };
 
@@ -101,6 +108,7 @@ export {
   sHight,
   sWidth,
   truncate,
+  truncateWords,
   vS,
   windowHeight,
   windowWidth,

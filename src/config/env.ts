@@ -1,10 +1,11 @@
-let env = "dev";
-// let env = 'stage';
+// let env = "dev";
+let env = "stage";
 // let env = 'prod';
 
-export const stg_url = "https://isqrool-be.azurewebsites.net/";
+export const stg_url =
+  "https://unpunctuating-duane-pulleyless.ngrok-free.dev/api";
 export const local_url = "http://192.168.43.169:2005/";
-export const dev_url = "http://localhost:3000";
+export const dev_url = "http://192.168.97.56:3000/api";
 export const prod_url = "https://be.isqroll.co.nz/";
 
 export const BASE_URL =

@@ -1,3 +1,5 @@
+import { GoLiveProvider } from "@/src/contexts/GoLiveContext";
+import SocketLocationService from "@/src/services/SocketLocationService";
 import { toastConfig } from "@/src/utils/toast";
 import { Stack } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -29,6 +31,8 @@ function AppContent() {
       }}
     >
       <Stack screenOptions={{ headerShown: false }} />
+      {/* Socket Location Service - runs globally across all screens */}
+      <SocketLocationService />
     </View>
   );
 }
@@ -42,8 +46,10 @@ export default function RootLayout() {
     <>
       <SafeAreaProvider>
         <Provider store={store}>
-          <StatusBar barStyle={"default"} />
-          <AppContent />
+          <GoLiveProvider>
+            <StatusBar barStyle={"default"} />
+            <AppContent />
+          </GoLiveProvider>
         </Provider>
       </SafeAreaProvider>
       <Toast
@@ -51,7 +57,7 @@ export default function RootLayout() {
         topOffset={Platform.OS === "ios" ? 60 : 40}
         visibilityTime={4000}
         autoHide={true}
-        position='top'
+        position="top"
       />
     </>
   );

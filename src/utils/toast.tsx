@@ -191,3 +191,16 @@ const createToastFunction = (): ToastFunction => {
 };
 
 export const toast = createToastFunction();
+
+/**
+ * Alternative showToast function that accepts an object with Toast.show parameters
+ */
+export const showToast = (params: ToastParams) => {
+  Toast.show({
+    visibilityTime: 4000,
+    autoHide: true,
+    topOffset: Platform.OS === "ios" ? 60 : 40,
+    position: "top" as const,
+    ...params,
+  });
+};

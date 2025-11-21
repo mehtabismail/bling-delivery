@@ -1,9 +1,12 @@
 import CustomButton from "@/src/components/CustomButton";
 import CustomLineSeparater from "@/src/components/CustomLineSeparater";
+import SlideToConfirm from "@/src/components/SlideToConfirm";
 import { useTheme } from "@/src/hooks";
+import { DirectionsResponse } from "@/src/types/shipments";
 import { getStatusText, mS } from "@/src/utils/helper";
 import { Package } from "@/src/utils/mockData";
-import React from "react";
+import dayjs from "dayjs";
+import React, { useMemo } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 interface DeliveryInfoCardProps {
@@ -11,6 +14,10 @@ interface DeliveryInfoCardProps {
   onMessage?: () => void;
   onCall?: () => void;
   onPrimaryAction?: () => void;
+  primaryButtonText?: string | null;
+  isPrimaryButtonLoading?: boolean;
+  isPrimaryButtonDisabled?: boolean;
+  directions?: DirectionsResponse["data"];
 }
 
 const DeliveryInfoCard: React.FC<DeliveryInfoCardProps> = ({
@@ -18,10 +25,55 @@ const DeliveryInfoCard: React.FC<DeliveryInfoCardProps> = ({
   onMessage,
   onCall,
   onPrimaryAction,
+  primaryButtonText,
+  isPrimaryButtonLoading = false,
+  isPrimaryButtonDisabled = false,
+  directions,
 }) => {
   const { Layout, Gutters, Fonts, Colors, Images } = useTheme();
 
-  const primaryCtaText = pkg.status === "waiting" ? "Accept Order" : "Continue";
+  // Use provided button text or fallback to default
+  const primaryCtaText =
+    primaryButtonText !== undefined
+      ? primaryButtonText || "Continue"
+      : pkg.status === "waiting"
+      ? "Accept Order"
+      : "Continue";
+
+  // Format dates from directions API
+  const { departureTime, expectedTime } = useMemo(() => {
+    if (directions) {
+      // Expected time from API (arrival time)
+      const expected =
+        directions.arrivalTimeLocal ||
+        dayjs(directions.arrivalTimeIso).format("DD MMM hh:mm A");
+
+      // Calculate departure time: arrival time minus ETA
+      let departure: string;
+      if (directions.arrivalTimeIso && directions.etaSeconds) {
+        const arrivalDate = dayjs(directions.arrivalTimeIso);
+        const departureDate = arrivalDate.subtract(
+          directions.etaSeconds,
+          "second"
+        );
+        departure = departureDate.format("DD MMM hh:mm A");
+      } else {
+        // Fallback to current time if ETA not available
+        departure = dayjs().format("DD MMM hh:mm A");
+      }
+
+      return {
+        departureTime: departure,
+        expectedTime: expected,
+      };
+    }
+
+    // Fallback to package data or default
+    return {
+      departureTime: pkg.departureDate || dayjs().format("DD MMM hh:mm A"),
+      expectedTime: dayjs().add(2, "day").format("DD MMM hh:mm A"),
+    };
+  }, [directions, pkg.departureDate]);
 
   return (
     <View style={[Gutters.xTinyGapPadding]}>
@@ -97,7 +149,7 @@ const DeliveryInfoCard: React.FC<DeliveryInfoCardProps> = ({
           ]}
           numberOfLines={1}
         >
-          {pkg.fromAddress}
+          {directions?.toAddress || pkg.fromAddress || "Address not available"}
         </Text>
       </View>
 
@@ -118,7 +170,7 @@ const DeliveryInfoCard: React.FC<DeliveryInfoCardProps> = ({
               { color: Colors.text },
             ]}
           >
-            12 May 08:00 AM
+            {departureTime}
           </Text>
         </View>
         <View>
@@ -134,7 +186,7 @@ const DeliveryInfoCard: React.FC<DeliveryInfoCardProps> = ({
               { color: Colors.text },
             ]}
           >
-            14 May 02:00 PM
+            {expectedTime}
           </Text>
         </View>
       </View>
@@ -195,12 +247,28 @@ const DeliveryInfoCard: React.FC<DeliveryInfoCardProps> = ({
         </View>
       </View>
 
-      {/* Accept button inside card */}
-      <CustomButton
-        btnText={primaryCtaText}
-        onPress={onPrimaryAction || (() => {})}
-        customStyle={Gutters.gapTMargin}
-      />
+      {/* Primary action button inside card */}
+      {primaryCtaText && (
+        <>
+          {primaryCtaText === "Picked from Warehouse" ? (
+            <View style={Gutters.gapTMargin}>
+              <SlideToConfirm
+                onConfirm={onPrimaryAction || (() => {})}
+                disabled={isPrimaryButtonDisabled}
+                loading={isPrimaryButtonLoading}
+              />
+            </View>
+          ) : (
+            <CustomButton
+              btnText={primaryCtaText}
+              onPress={onPrimaryAction || (() => {})}
+              customStyle={Gutters.gapTMargin}
+              disabled={isPrimaryButtonDisabled || isPrimaryButtonLoading}
+              loading={isPrimaryButtonLoading}
+            />
+          )}
+        </>
+      )}
     </View>
   );
 };

@@ -9,6 +9,7 @@ import { PersistConfig, persistReducer, persistStore } from "redux-persist";
 
 import { AuthSlice, CommonSlice, theme } from ".";
 import { api } from "../services/api";
+import { setPersistor } from "./persistorRef";
 
 const reducers = combineReducers({
   theme,
@@ -70,6 +71,7 @@ const store = configureStore({
 });
 
 const persistor = persistStore(store);
+setPersistor(persistor);
 
 setupListeners(store.dispatch);
 

@@ -30,20 +30,20 @@ const TabsLayout = () => {
       }}
     >
       <Tabs.Screen
-        name='index'
+        name="index"
         options={{
           tabBarIcon: ({ focused }) => <Images.svg.Home_Tab_Filled.default />,
         }}
       />
       <Tabs.Screen
-        name='packages'
+        name="packages"
         options={{
           tabBarIcon: ({ focused }) => <Images.svg.Packages.default />,
         }}
       />
 
       <Tabs.Screen
-        name='account'
+        name="account"
         options={{
           tabBarIcon: ({ focused }) => <Images.svg.Account_Tab.default />,
         }}

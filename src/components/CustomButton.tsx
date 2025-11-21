@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ActivityIndicator,
   GestureResponderEvent,
   StyleProp,
   StyleSheet,
@@ -20,6 +21,10 @@ export interface CustomButtonProps {
   customStyle?: StyleProp<ViewStyle>;
   /** Optional custom style for button text */
   customTextStyle?: StyleProp<TextStyle>;
+  /** Whether the button is disabled */
+  disabled?: boolean;
+  /** Whether the button is in loading state */
+  loading?: boolean;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -27,32 +32,39 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   btnText,
   customStyle,
   customTextStyle,
+  disabled = false,
+  loading = false,
 }) => {
   const { Layout, Colors, Gutters, Fonts } = useTheme();
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => onPress()}
+      onPress={() => !disabled && !loading && onPress()}
+      disabled={disabled || loading}
       style={[
         Layout.fullWidth,
         Layout.center,
         Gutters.gapVMargin,
         // Gutters.darkShadow,
         Gutters.gapXGapRadius,
-        createStyles.button(Colors),
+        createStyles.button(Colors, disabled),
         customStyle,
       ]}
     >
-      <Text
-        style={[
-          Fonts.POPPINS_MEDIUM_16,
-          createStyles.buttonText(Colors),
-          customTextStyle,
-        ]}
-      >
-        {btnText}
-      </Text>
+      {loading ? (
+        <ActivityIndicator size="small" color={Colors.white} />
+      ) : (
+        <Text
+          style={[
+            Fonts.POPPINS_MEDIUM_16,
+            createStyles.buttonText(Colors, disabled),
+            customTextStyle,
+          ]}
+        >
+          {btnText}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };
@@ -62,12 +74,14 @@ const styles = StyleSheet.create({
 });
 
 const createStyles = {
-  button: (Colors: any) => ({
+  button: (Colors: any, disabled?: boolean) => ({
     height: mS(48),
-    backgroundColor: Colors.primary,
+    backgroundColor: disabled ? Colors.border_primary : Colors.primary,
+    opacity: disabled ? 0.6 : 1,
   }),
-  buttonText: (Colors: any) => ({
+  buttonText: (Colors: any, disabled?: boolean) => ({
     color: Colors.white,
+    opacity: disabled ? 0.6 : 1,
   }),
 };
 

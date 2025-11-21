@@ -18,6 +18,12 @@ interface MapHeaderProps {
   routeCoordinates: { latitude: number; longitude: number }[];
   isLoadingLocation: boolean;
   bottomSheetRatio?: number; // 0..1 of screen height reserved by sheet (for padding)
+  pickupLabel?: string;
+  pickupDescription?: string;
+  dropoffLabel?: string;
+  dropoffDescription?: string;
+  showPickupMarker?: boolean;
+  dropoffType?: "vendor" | "warehouse" | "customer";
 }
 
 const MapHeader: React.FC<MapHeaderProps> = ({
@@ -28,6 +34,12 @@ const MapHeader: React.FC<MapHeaderProps> = ({
   routeCoordinates,
   isLoadingLocation,
   bottomSheetRatio = 0.6,
+  pickupLabel = "Bling Center",
+  pickupDescription = "Pickup location",
+  dropoffLabel = "Delivery Location",
+  dropoffDescription = "Customer address",
+  showPickupMarker = true,
+  dropoffType = "customer",
 }) => {
   const { Layout, Colors, Fonts, Images } = useTheme();
   const mapRef = useRef<MapView | null>(null);
@@ -113,9 +125,11 @@ const MapHeader: React.FC<MapHeaderProps> = ({
       {routeCoordinates.length > 0 && (
         <Polyline
           coordinates={routeCoordinates}
-          strokeColor={Colors.primary}
-          strokeWidth={4}
-          lineDashPattern={[0]}
+          strokeColor="#1E71FF"
+          strokeWidth={5}
+          lineCap="round"
+          lineJoin="round"
+          geodesic
         />
       )}
 
@@ -137,39 +151,65 @@ const MapHeader: React.FC<MapHeaderProps> = ({
         </Marker>
       )}
 
-      {/* Bling Center Marker (Pickup Location) */}
-      <Marker
-        coordinate={blingCenterLocation}
-        title="Bling Center"
-        description="Pickup location"
-      >
-        <View
-          style={[
-            Layout.center,
-            {
-              width: mS(40),
-              height: mS(40),
-              borderRadius: mS(20),
-              backgroundColor: Colors.white,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
-            },
-          ]}
+      {/* Pickup Marker */}
+      {showPickupMarker && (
+        <Marker
+          coordinate={blingCenterLocation}
+          title={pickupLabel}
+          description={pickupDescription}
         >
-          <Images.svg.Box.default width={mS(24)} height={mS(24)} />
-        </View>
-      </Marker>
+          <View
+            style={[
+              Layout.center,
+              {
+                width: mS(40),
+                height: mS(40),
+                borderRadius: mS(20),
+                backgroundColor: Colors.white,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+              },
+            ]}
+          >
+            <Images.svg.Box.default width={mS(24)} height={mS(24)} />
+          </View>
+        </Marker>
+      )}
 
-      {/* Buyer Location Marker (Delivery Destination) */}
+      {/* Dropoff Marker */}
       <Marker
         coordinate={buyerLocation}
-        title="Delivery Location"
-        description="Customer address"
+        title={dropoffLabel}
+        description={dropoffDescription}
       >
-        <Images.svg.Google_Map_Marker.default width={mS(40)} height={mS(50)} />
+        {dropoffType === "warehouse" ? (
+          <View
+            style={[
+              Layout.center,
+              {
+                width: mS(40),
+                height: mS(40),
+                borderRadius: mS(20),
+                backgroundColor: Colors.white,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+              },
+            ]}
+          >
+            <Images.svg.Box.default width={mS(24)} height={mS(24)} />
+          </View>
+        ) : (
+          <Images.svg.Google_Map_Marker.default
+            width={mS(40)}
+            height={mS(50)}
+          />
+        )}
       </Marker>
     </MapView>
   );

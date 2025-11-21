@@ -10,6 +10,7 @@ interface PackageFiltersProps {
 
 const filters = [
   { key: "all", label: "common:filters.all" },
+  { key: "offers", label: "common:filters.offers" },
   { key: "in_transit", label: "common:filters.in_transit" },
   { key: "completed", label: "common:filters.completed" },
   { key: "canceled", label: "common:filters.canceled" },

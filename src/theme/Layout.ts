@@ -26,6 +26,10 @@ export default function ({}: ThemeVariables) {
       justifyContent: "center",
     },
     /* Row Layouts */
+    rowBetween: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
     row: {
       flexDirection: "row",
     },

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../config/env";
 import { logout } from "../store/auth/AuthSlice";
-import { persistor } from "../store/store";
+import { getPersistor } from "../store/persistorRef";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
@@ -24,8 +24,12 @@ const baseQueryWithInterceptor = async (
   if (result.error && result.error.status === 401) {
     dispatch({ type: "logout" });
     setTimeout(async () => {
-      dispatch(logout()), await persistor.purge();
-      await persistor.flush();
+      const persistor = getPersistor();
+      dispatch(logout());
+      if (persistor) {
+        await persistor.purge();
+        await persistor.flush();
+      }
     }, 500);
   }
 
@@ -36,6 +40,6 @@ const baseQueryWithInterceptor = async (
 
 export const api = createApi({
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ["User"],
+  tagTypes: ["User", "Shipments"],
   endpoints: () => ({}),
 });

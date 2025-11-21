@@ -1,5 +1,5 @@
 import { useTheme } from "@/src/hooks";
-import { mS } from "@/src/utils/helper";
+import { mS, truncateWords } from "@/src/utils/helper";
 import { Package } from "@/src/utils/mockData";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -144,37 +144,102 @@ const FeaturedPackageCard: React.FC<FeaturedPackageCardProps> = ({
 
       {/* Address Row */}
       <View
-        style={[Layout.row, Layout.alignItemsCenter, Gutters.littleTMargin]}
+        style={[
+          Layout.row,
+          Layout.alignItemsCenter,
+          Gutters.littleTMargin,
+          { width: "100%" },
+        ]}
       >
-        <View style={[Layout.row, Layout.alignItemsCenter, Layout.fill]}>
-          <Text
-            style={[
-              Fonts.POPPINS_REGULAR_13,
-              Layout.fill,
-              featuredCardStyles.static.addressText,
-            ]}
-            numberOfLines={1}
-          >
-            {packageData.toAddress}
-          </Text>
-        </View>
+        {/* Left Location (Source) - Only show if fromAddress exists */}
+        {packageData.fromAddress ? (
+          <>
+            <View
+              style={[
+                Layout.row,
+                Layout.alignItemsCenter,
+                { flex: 1, minWidth: 0 },
+              ]}
+            >
+              {packageData.leftLocationType === "warehouse" ? (
+                <Images.svg.Map_Box.default
+                  width={mS(14)}
+                  height={mS(14)}
+                  fill={Colors.white}
+                />
+              ) : (
+                <Images.svg.Location_Marker.default
+                  width={mS(14)}
+                  height={mS(14)}
+                  fill={Colors.white}
+                />
+              )}
+              <Text
+                style={[
+                  Fonts.POPPINS_REGULAR_13,
+                  { flex: 1 },
+                  Gutters.littleXGapLMargin,
+                  featuredCardStyles.static.addressText,
+                ]}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {truncateWords(packageData.fromAddress, 8)}
+              </Text>
+            </View>
 
+            {/* Arrow - Only show if both locations exist */}
+            <View
+              style={[
+                Layout.row,
+                Layout.alignItemsCenter,
+                { flexShrink: 0 },
+                Gutters.xLittleLMargin,
+              ]}
+            >
+              <Images.svg.Long_Arrow_Right.default
+                width={mS(18)}
+                height={mS(18)}
+                fill={Colors.white}
+              />
+            </View>
+          </>
+        ) : null}
+
+        {/* Right Location (Destination) */}
         <View
-          style={[Layout.row, Layout.alignItemsCenter, Gutters.xLittleLMargin]}
+          style={[
+            Layout.row,
+            Layout.alignItemsCenter,
+            packageData.fromAddress
+              ? { flex: 1, minWidth: 0, marginLeft: mS(8) }
+              : { flex: 1, minWidth: 0, width: "100%" },
+          ]}
         >
-          <Images.svg.Long_Arrow_Right.default
-            width={mS(18)}
-            height={mS(18)}
-            fill={Colors.white}
-          />
+          {packageData.rightLocationType === "warehouse" ? (
+            <Images.svg.Map_Box.default
+              width={mS(14)}
+              height={mS(14)}
+              fill={Colors.white}
+            />
+          ) : (
+            <Images.svg.Location_Marker.default
+              width={mS(14)}
+              height={mS(14)}
+              fill={Colors.white}
+            />
+          )}
           <Text
             style={[
               Fonts.POPPINS_MEDIUM_13,
+              { flex: 1 },
               Gutters.tinyLMargin,
               featuredCardStyles.dynamic.destinationText(Colors),
             ]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
           >
-            {packageData.destination}
+            {truncateWords(packageData.toAddress, 8)}
           </Text>
         </View>
       </View>

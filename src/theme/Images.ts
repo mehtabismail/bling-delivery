@@ -67,6 +67,8 @@ export default function ({}: ThemeVariables) {
       Progress_Map_Marker: require("@/src/theme/assets/svg/Progress_Map_Marker.svg"),
       Confirm_Order: require("@/src/theme/assets/svg/Confirm_Order.svg"),
       Done_Icon: require("@/src/theme/assets/svg/Done_Icon.svg"),
+      Bling_Luxury: require("@/src/theme/assets/svg/Bling_Luxury.svg"),
+      Slide_To_Confirm: require("@/src/theme/assets/svg/Slide_To_Confirm.svg"),
     },
     png: {
       Logo: require("../theme/assets/images/Logo.png"),

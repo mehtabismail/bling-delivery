@@ -23,6 +23,7 @@
   },
   "filters": {
     "all": "الكل",
+    "offers": "العروض",
     "in_transit": "في الطريق",
     "completed": "مكتمل",
     "canceled": "ملغي"
@@ -57,6 +58,9 @@
     "confirm_new_password": "تأكيد العنوان الجديد"
   },
   "errors": {
-    "passwords_dont_match": "كلمات المرور غير متطابقة"
-  }
+    "passwords_dont_match": "كلمات المرور غير متطابقة",
+    "failed_to_load": "فشل في تحميل البيانات. اسحب للتحديث."
+  },
+  "no_search_results": "لم يتم العثور على نتائج",
+  "no_shipments_found": "لا توجد شحنات متاحة"
 }

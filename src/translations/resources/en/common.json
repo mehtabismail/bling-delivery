@@ -46,6 +46,7 @@
   },
   "filters": {
     "all": "All",
+    "offers": "Offers",
     "in_transit": "In Transit",
     "completed": "Completed",
     "canceled": "Canceled"
@@ -80,6 +81,9 @@
     "confirm_new_password": "Confirm New Address"
   },
   "errors": {
-    "passwords_dont_match": "Passwords don't match"
-  }
+    "passwords_dont_match": "Passwords don't match",
+    "failed_to_load": "Failed to load data. Pull to refresh."
+  },
+  "no_search_results": "No results found",
+  "no_shipments_found": "No shipments available"
 }

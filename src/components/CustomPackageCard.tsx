@@ -1,5 +1,10 @@
 import { useTheme } from "@/src/hooks";
-import { getStatusColor, getStatusText, mS } from "@/src/utils/helper";
+import {
+  getStatusColor,
+  getStatusText,
+  mS,
+  truncateWords,
+} from "@/src/utils/helper";
 import { Package } from "@/src/utils/mockData";
 import React from "react";
 import {
@@ -106,30 +111,89 @@ const CustomPackageCard: React.FC<CustomPackageCardProps> = ({
           Gutters.tinyBPadding,
           Gutters.tinyHMargin,
           Layout.alignItemsCenter,
+          { width: "100%" },
         ]}
       >
-        <View style={[Layout.row, Layout.alignItemsCenter, Layout.fill]}>
-          <Images.svg.Location_Marker.default
-            width={mS(14)}
-            height={mS(14)}
-            fill={Colors.text_91A8AD}
-          />
+        {/* Left Location (Source) - Only show if fromAddress exists */}
+        {packageData.fromAddress ? (
+          <>
+            <View
+              style={[
+                Layout.row,
+                Layout.alignItemsCenter,
+                { flex: 1, minWidth: 0 },
+              ]}
+            >
+              {packageData.leftLocationType === "warehouse" ? (
+                <Images.svg.Map_Box.default
+                  width={mS(14)}
+                  height={mS(14)}
+                  fill={Colors.text_91A8AD}
+                />
+              ) : (
+                <Images.svg.Location_Marker.default
+                  width={mS(14)}
+                  height={mS(14)}
+                  fill={Colors.text_91A8AD}
+                />
+              )}
+              <Text
+                style={[
+                  Fonts.POPPINS_REGULAR_13,
+                  { flex: 1 },
+                  Gutters.littleXGapLMargin,
+                  customPackageCardStyles.dynamic.addressText(Colors, variant),
+                ]}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {truncateWords(packageData.fromAddress, 8)}
+              </Text>
+            </View>
+
+            {/* Arrow - Only show if both locations exist */}
+            <View
+              style={[Layout.row, Layout.alignItemsCenter, { flexShrink: 0 }]}
+            >
+              <Images.svg.Long_Arrow_Right.default fill={Colors.arrow_B7B7B7} />
+            </View>
+          </>
+        ) : null}
+
+        {/* Right Location (Destination) */}
+        <View
+          style={[
+            Layout.row,
+            Layout.alignItemsCenter,
+            packageData.fromAddress
+              ? { flex: 1, minWidth: 0, marginLeft: mS(8) }
+              : { flex: 1, minWidth: 0, width: "100%" },
+          ]}
+        >
+          {packageData.rightLocationType === "warehouse" ? (
+            <Images.svg.Map_Box.default
+              width={mS(14)}
+              height={mS(14)}
+              fill={Colors.text_91A8AD}
+            />
+          ) : (
+            <Images.svg.Location_Marker.default
+              width={mS(14)}
+              height={mS(14)}
+              fill={Colors.text_91A8AD}
+            />
+          )}
           <Text
             style={[
               Fonts.POPPINS_REGULAR_13,
-              Layout.fill,
+              { flex: 1 },
               Gutters.littleXGapLMargin,
               customPackageCardStyles.dynamic.addressText(Colors, variant),
             ]}
             numberOfLines={1}
+            ellipsizeMode="tail"
           >
-            {packageData.fromAddress}
-          </Text>
-        </View>
-        <View style={[Layout.row, Layout.alignItemsCenter]}>
-          <Images.svg.Long_Arrow_Right.default fill={Colors.arrow_B7B7B7} />
-          <Text style={[Fonts.POPPINS_REGULAR_13, Gutters.tinyLMargin]}>
-            {packageData.destination}
+            {truncateWords(packageData.toAddress, 8)}
           </Text>
         </View>
       </View>
